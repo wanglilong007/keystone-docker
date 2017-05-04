@@ -11,14 +11,9 @@ LABEL version="$KEYSTONE_VERSION"
 LABEL description="Openstack Keystone Docker Image Supporting HTTP/HTTPS"
 
 RUN apt-get -y update \
-    && apt-get install -y apache2 libapache2-mod-wsgi git memcached\
+    && apt-get install -y apache2 libapache2-mod-wsgi git\
         libffi-dev python-dev libssl-dev mysql-client libldap2-dev libsasl2-dev\
     && apt-get -y clean
-
-RUN export DEBIAN_FRONTEND="noninteractive" \
-    && echo "mysql-server mysql-server/root_password password $KEYSTONE_DB_ROOT_PASSWD" | debconf-set-selections \
-    && echo "mysql-server mysql-server/root_password_again password $KEYSTONE_DB_ROOT_PASSWD" | debconf-set-selections \
-    && apt-get -y update && apt-get install -y mysql-server && apt-get -y clean
 
 RUN git clone -b ${KEYSTONE_VERSION} https://github.com/openstack/keystone.git
 
