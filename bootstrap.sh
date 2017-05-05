@@ -28,11 +28,6 @@ else
     fi
 fi
 
-addgroup --system keystone >/dev/null || true
-adduser --quiet --system --home /var/lib/keystone \
-        --no-create-home --ingroup keystone --shell /bin/false \
-        keystone || true
-
 if [ "$(id -gn keystone)"  = "nogroup" ]
 then
     usermod -g keystone keystone
@@ -60,7 +55,7 @@ sed -i "s/KEYSTONE_DB_HOST/$KEYSTONE_DB_HOST/g" /etc/keystone/keystone.conf
 su -s /bin/sh -c 'keystone-manage db_sync' keystone
 
 #Initialize Fernet keys
-keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+#keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
 
 # Bootstrap keystone
 keystone-manage bootstrap --bootstrap-username admin \
