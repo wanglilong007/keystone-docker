@@ -27,6 +27,14 @@ RUN pip install "osc-lib<=1.1.0" "python-openstackclient<=3.3.0" PyMySql python-
 RUN mkdir /etc/keystone
 RUN cp -r ./etc/* /etc/keystone/
 
+RUN addgroup --system keystone >/dev/null || true
+RUN adduser --quiet --system --home /var/lib/keystone \
+        --no-create-home --ingroup keystone --shell /bin/false \
+        keystone || true
+#Initialize Fernet keys
+RUN keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+
+
 COPY ./etc/keystone.conf /etc/keystone/keystone.conf
 COPY keystone.sql /keystone.sql
 COPY bootstrap.sh /bootstrap.sh
