@@ -1,8 +1,8 @@
 FROM python:2.7.12
-MAINTAINER = Di Xu <stephenhsu90@gmail.com>
+MAINTAINER = Lilong Wang <wanglilong007@gmail.com>
 
 EXPOSE 5000 35357
-ENV KEYSTONE_VERSION 9.2.0
+ENV KEYSTONE_VERSION 10.0.0.0rc1
 ENV KEYSTONE_ADMIN_PASSWORD passw0rd
 ENV KEYSTONE_DB_ROOT_PASSWD passw0rd
 ENV KEYSTONE_DB_PASSWD passw0rd
@@ -18,7 +18,7 @@ RUN apt-get -y update \
 RUN git clone -b ${KEYSTONE_VERSION} https://github.com/openstack/keystone.git
 
 WORKDIR /keystone
-RUN sed -i.bak "s|keystonemiddleware!=4.1.0,>=4.0.0|keystonemiddleware!=4.1.0,>=4.0.0,<=4.9.0|" requirements.txt
+#RUN sed -i.bak "s|keystonemiddleware!=4.1.0,>=4.0.0|keystonemiddleware!=4.1.0,>=4.0.0,<=4.9.0|" requirements.txt
 RUN pip install -r requirements.txt \
     && PBR_VERSION=${KEYSTONE_VERSION} python setup.py install
 
