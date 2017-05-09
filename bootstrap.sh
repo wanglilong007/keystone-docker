@@ -27,13 +27,7 @@ if [ -z $KEYSTONE_DB_HOST ]; then
     # start mysql locally
     # service mysql restart
 else
-    if [ -z $KEYSTONE_DB_ROOT_PASSWD_IF_REMOTED ]; then
-        echo "Your'are using Remote MySQL Database; "
-        echo "Please set KEYSTONE_DB_ROOT_PASSWD_IF_REMOTED when running a container."
-        exit 1;
-    else
-        KEYSTONE_DB_ROOT_PASSWD=$KEYSTONE_DB_ROOT_PASSWD_IF_REMOTED
-    fi
+    echo "Your'are using Remote MySQL Database; "
 fi
 
 if [ "$(id -gn keystone)"  = "nogroup" ]
