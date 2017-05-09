@@ -22,7 +22,7 @@ WORKDIR /keystone
 RUN pip install -r requirements.txt \
     && PBR_VERSION=${KEYSTONE_VERSION} python setup.py install
 
-RUN pip install "osc-lib<=1.1.0" "python-openstackclient<=3.3.0" PyMySql python-memcached \
+RUN pip install python-openstackclient PyMySql python-memcached \
     python-ldap ldappool
 RUN mkdir /etc/keystone
 RUN cp -r ./etc/* /etc/keystone/
