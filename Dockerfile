@@ -10,8 +10,6 @@ ENV KEYSTONE_DB_PASSWD passw0rd
 LABEL version="$KEYSTONE_VERSION"
 LABEL description="Openstack Keystone Docker Image Supporting HTTP/HTTPS"
 
-RUN add-apt-repository ppa:ondrej/apache2
-
 RUN apt-get -y update \
     && apt-get install -y apache2 libapache2-mod-wsgi git\
         libffi-dev python-dev libssl-dev mysql-client libldap2-dev libsasl2-dev\
